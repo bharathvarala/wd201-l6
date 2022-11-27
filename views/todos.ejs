@@ -1,0 +1,16 @@
+<table border="1">
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Due Date</th>
+      <th>Is it completed</th>
+    </tr>
+    <% for(let i=0;i<allTodosAre.length; i++) { %>
+      <tr>
+        <td><%= allTodosAre[i].id %></td>
+        <td><%= allTodosAre[i].title %></td>
+        <td><%= allTodosAre[i].dueDate %></td>
+        <td><%= allTodosAre[i].completed %></td>
+      </tr>
+    <% } %>
+  </table>

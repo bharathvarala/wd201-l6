@@ -3,9 +3,22 @@ const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+app.set("view engine","ejs");
+// app.get("/", function (request, response) {
+//   response.send("Hello World");
+// });
+app.use(express.static("public"));
 
-app.get("/", function (request, response) {
-  response.send("Hello World");
+app.get("/", async (request, response)=>{
+  // response.send("Hello World");
+  const allTodosAre = await Todo.getTodos();
+  if (request.accepts("html")) {
+    response.render("index", {
+      allTodosAre,
+    });
+  } else {
+    response.json(allTodosAre);
+  }
 });
 
 app.get("/todos", async function (_request, response) {
