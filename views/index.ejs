@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <meta name="csrf-token" content="<%= csrfToken %>">
         <link href="./css/style.css" rel="stylesheet">
-        <title>Ragul's Todo Manager</title>
+        <title>My Todo Manager</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="./css/style.css" rel="stylesheet">
         <script>
@@ -70,9 +70,13 @@
             </div>
         </form>
         <%- include('todos.ejs', {title: "Overdue", data: overdue}) %>
+        <br>
         <%- include('todos.ejs', {title: "Due Today", data: dueToday}) %>
+        <br>
         <%- include('todos.ejs', {title: "Due Later", data: dueLater}) %>
+        <br>
         <%- include('todos.ejs', {title: "Completed Items", data: completedItemsIs}) %>
+        <br>
     </div>
 </div>
     </body>
