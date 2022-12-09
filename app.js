@@ -57,7 +57,7 @@ passport.use(
           }
         })
         .catch(() => {
-          return done(null, false, { message: "EmailID is invalid" });
+          return done(null, false, { message: "EmailID is invalid!!!" });
         });
     }
   )
@@ -125,19 +125,19 @@ app.get("/todos",
 //Route for users
 app.post("/users", async (request, response) => {
   if (!request.body.firstName) {
-    request.flash("error", "Please do enter your first name");
+    request.flash("error", "Please enter your first name");
     return response.redirect("/signup");
   }
   if (!request.body.email) {
-    request.flash("error", "Please do enter your email ID");
+    request.flash("error", "Please enter your email ID");
     return response.redirect("/signup");
   }
   if (!request.body.password) {
-    request.flash("error", "Please do enter your password");
+    request.flash("error", "Please enter your password");
     return response.redirect("/signup");
   }
   if (request.body.password < 8) {
-    request.flash("error", "Length of password should be atleast 8");
+    request.flash("error", "Length of password should be atleast 8 charactes");
     return response.redirect("/signup");
   }
   const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
@@ -218,7 +218,7 @@ app.post("/todos",
   connectEnsureLogin.ensureLoggedIn(),
   async function (request, response) {
     if (request.body.title.length < 5) {
-      request.flash("error", "Lenght of title should be atleast 5");
+      request.flash("error", "Length of title should be atleast 5 characters");
       return response.redirect("/todos");
     }
     if (!request.body.dueDate) {
