@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 const { Todo, User } = require("./models");
 const bodyParser = require("body-parser");
 const path = require("path");
+//exporting all the libraries related to level10
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const connectEnsureLogin = require("connect-ensure-login");
@@ -35,6 +36,7 @@ app.use(function (request, response, next) {
   next();
 });
 
+//initializing and session
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -89,8 +91,7 @@ app.get("/", async function (request, response) {
   });
 });
 
-app.get(
-  "/todos",
+app.get("/todos",
   connectEnsureLogin.ensureLoggedIn(),
   async function (request, response) {
     try {
@@ -110,10 +111,7 @@ app.get(
         });
       } else {
         response.json({
-          overDue,
-          dueToday,
-          dueLater,
-          completedItems,
+          overDue,dueToday,dueLater,completedItems,
         });
       }
     } catch (err1) {
@@ -123,6 +121,8 @@ app.get(
   }
 );
 
+
+//Route for users
 app.post("/users", async (request, response) => {
   if (!request.body.firstName) {
     request.flash("error", "Please do enter your first name");
@@ -162,6 +162,7 @@ app.post("/users", async (request, response) => {
   }
 });
 
+//Route for login
 app.get("/login", (request, response) => {
   response.render("login", {
     title: "Login",
@@ -169,6 +170,7 @@ app.get("/login", (request, response) => {
   });
 });
 
+//Route for signup
 app.get("/signup", (request, response) => {
   response.render("signup", {
     title: "Sign up",
@@ -176,8 +178,8 @@ app.get("/signup", (request, response) => {
   });
 });
 
-app.post(
-  "/session",
+//Route for session
+app.post("/session",
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true,
@@ -187,6 +189,7 @@ app.post(
   }
 );
 
+//Route for signout
 app.get("/signout", (req, res, next) => {
   req.logout((err1) => {
     if (err1) {
@@ -197,8 +200,7 @@ app.get("/signout", (req, res, next) => {
 });
 
 //Not required for this level
-app.get(
-  "/todos/:id",
+app.get("/todos/:id",
   connectEnsureLogin.ensureLoggedIn(),
   async function (request, response) {
     try {
@@ -212,8 +214,7 @@ app.get(
 );
 
 //Route for todos
-app.post(
-  "/todos",
+app.post("/todos",
   connectEnsureLogin.ensureLoggedIn(),
   async function (request, response) {
     if (request.body.title.length < 5) {
@@ -239,8 +240,7 @@ app.post(
 );
 
 //Route for completion status
-app.put(
-  "/todos/:id",
+app.put("/todos/:id",
   connectEnsureLogin.ensureLoggedIn(),
   async function (request, response) {
     const todo = await Todo.findByPk(request.params.id);
@@ -257,8 +257,7 @@ app.put(
 );
 
 //Route for deleting
-app.delete(
-  "/todos/:id",
+app.delete("/todos/:id",
   connectEnsureLogin.ensureLoggedIn(),
   async function (req, resp) {
     console.log("Delete a todo with a particular id : ", req.params.id);

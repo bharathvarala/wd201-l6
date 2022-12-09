@@ -1,7 +1,6 @@
 "use strict";
 const { Op, where } = require("sequelize");
-const { Model} = require("sequelize");
-
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -10,30 +9,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
       Todo.belongsTo(models.User, {
         foreignKey: "userID",
       });
+      // define association here
     }
-    static async addaTodo({ title, dueDate,userID }) {
-      return this.create({ title: title, 
-        dueDate: dueDate, 
+
+    static async addaTodo({ title, dueDate, userID }) {
+      return this.create({
+        title: title,
+        dueDate: dueDate,
         completed: false,
-        userID, 
+        userID,
       });
     }
-    // static markAsCompleted() {
-    //   return this.update({ completed: true });
-    // }
-    // static getAllTodos() {
-    //   return this.findAll({ order: [["id", "ASC"]] });
-    // }
-    // static async completedItemsAre() {
-    //   return this.findAll({
-    //     where: { completed: { [Op.eq]: true } },
-    //     order: [["id", "DESC"]],
-    //   });
-    // }
+
     static async overDue(userID) {
       return await Todo.findAll({
         where: {

@@ -1,6 +1,9 @@
-body{
+
+.Todo-Item:hover .trash-icon {
+    display: block;
+  }
+  
+  body {
     background-color: grey;
-    font-family: Georgia, 'Times New Roman', Times, serif;}
-    .Todo-Item:hover .trash-icon{
-        display:block;
-}
+    font-family:sans-serif;
+  }
