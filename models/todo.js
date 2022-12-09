@@ -1,6 +1,6 @@
 "use strict";
 const { Op, where } = require("sequelize");
-const { Model, Op } = require("sequelize");
+const { Model} = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
